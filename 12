@@ -1,0 +1,53 @@
+import telebot
+from telebot import types
+
+magaz420010_bot = telebot.TeleBot('7278004087:AAEzwZtmwT8t7DfpmYAipMIIoGbOkxZYAd0')
+
+
+@magaz420010_bot.message_handler(commands=['start'])
+def startBot(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn1 = types.KeyboardButton("Новосибирск")
+    btn2 = types.KeyboardButton("Барнаул")
+    markup.add(btn1, btn2)
+    magaz420010_bot.send_message(message.chat.id,
+                                 text="Выбери город".format(message.from_user), reply_markup=markup)
+
+@magaz420010_bot.message_handler(content_types=['text'])
+def func(message):
+    if message.text == "Новосибирск":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        btn1 = types.KeyboardButton("Октябрьский")
+        btn2 = types.KeyboardButton("Индустриальный")
+        back = types.KeyboardButton("Вернуться в главное меню")
+        markup.add(btn1, btn2, back)
+        magaz420010_bot.send_message(message.chat.id, text="Выбери район", reply_markup=markup)
+
+    elif message.text == "Барнаул":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        btn1 = types.KeyboardButton("Октябрьский")
+        btn2 = types.KeyboardButton("Индустриальный")
+        btn3 = types.KeyboardButton("Железнодорожный")
+        btn4 = types.KeyboardButton("Ленинский")
+        btn5 = types.KeyboardButton("Центральный")
+        back = types.KeyboardButton("Вернуться в главное меню")
+        markup.add(btn1, btn2, btn5, btn4, btn3, back)
+        magaz420010_bot.send_message(message.chat.id, text="Выбери район", reply_markup=markup)
+
+    elif message.text == "Октябрьский":
+        magaz420010_bot.send_message(message.chat.id, "У меня нет имени..")
+
+    elif message.text == "Индустриальный":
+        magaz420010_bot.send_message(message.chat.id, text="Поздороваться с читателями")
+
+    elif message.text == "Вернуться в главное меню":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        button1 = types.KeyboardButton("Новосибирск")
+        button2 = types.KeyboardButton("Барнаул")
+        markup.add(button1, button2)
+        magaz420010_bot.send_message(message.chat.id, text="Вы вернулись в главное меню", reply_markup=markup)
+    else:
+        magaz420010_bot.send_message(message.chat.id, text="На такую комманду я не запрограммировал..")
+
+
+magaz420010_bot.polling(none_stop=True)
